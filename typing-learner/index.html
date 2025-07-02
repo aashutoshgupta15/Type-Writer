@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Typing Learn Mode</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --text: #f8fafc;
+      --subtle: #94a3b8;
+      --accent: #6366f1;
+      --success: #22c55e;
+      --danger: #ef4444;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 2rem;
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 900px;
+      background-color: var(--card);
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 40px rgba(0,0,0,0.3);
+    }
+
+    h1 {
+      text-align: center;
+      color: var(--accent);
+      margin-bottom: 2rem;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .stat {
+      background-color: #334155;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      flex: 1;
+      min-width: 120px;
+      text-align: center;
+    }
+
+    .stat span:first-child {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--subtle);
+    }
+
+    .text-display {
+      background-color: #1e293b;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      min-height: 100px;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      border: 1px solid #334155;
+    }
+
+    .word.current {
+      background-color: var(--accent);
+      color: white;
+      border-radius: 4px;
+      padding: 2px 4px;
+    }
+
+    .word.correct {
+      color: var(--success);
+    }
+
+    .word.incorrect {
+      color: var(--danger);
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 1rem;
+      font-size: 1.1rem;
+      border-radius: 0.5rem;
+      border: 1px solid #334155;
+      background-color: #0f172a;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+    }
+
+    .keyboard {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .row {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .key {
+      background-color: #334155;
+      padding: 0.8rem 1rem;
+      border-radius: 0.5rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: var(--text);
+      min-width: 36px;
+      text-align: center;
+      user-select: none;
+    }
+
+    .key.space {
+      min-width: 200px;
+    }
+
+    .key.home {
+      background-color: #475569;
+    }
+
+    .key.active {
+      background-color: var(--accent);
+      color: white;
+    }
+
+    @media (max-width: 768px) {
+      .stat {
+        flex: 1 1 45%;
+      }
+      .key.space {
+        min-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Typing Learn Mode</h1>
+
+    <div class="stats">
+      <div class="stat"><span>WPM:</span><span id="wpm">0</span></div>
+      <div class="stat"><span>Accuracy:</span><span id="accuracy">100%</span></div>
+    </div>
+
+    <div id="text-display" class="text-display">Loading words...</div>
+
+    <input
+      type="text"
+      id="input-field"
+      class="input-field"
+      placeholder="Start typing here..."
+      autocomplete="off"
+    />
+
+    <div class="keyboard">
+      <div class="row">
+        <div class="key" data-key="q">Q</div>
+        <div class="key" data-key="w">W</div>
+        <div class="key" data-key="e">E</div>
+        <div class="key" data-key="r">R</div>
+        <div class="key" data-key="t">T</div>
+        <div class="key" data-key="y">Y</div>
+        <div class="key" data-key="u">U</div>
+        <div class="key" data-key="i">I</div>
+        <div class="key" data-key="o">O</div>
+        <div class="key" data-key="p">P</div>
+      </div>
+      <div class="row">
+        <div class="key home" data-key="a">A</div>
+        <div class="key home" data-key="s">S</div>
+        <div class="key home" data-key="d">D</div>
+        <div class="key home" data-key="f">F</div>
+        <div class="key" data-key="g">G</div>
+        <div class="key" data-key="h">H</div>
+        <div class="key home" data-key="j">J</div>
+        <div class="key home" data-key="k">K</div>
+        <div class="key home" data-key="l">L</div>
+        <div class="key" data-key=";">;</div>
+      </div>
+      <div class="row">
+        <div class="key" data-key="z">Z</div>
+        <div class="key" data-key="x">X</div>
+        <div class="key" data-key="c">C</div>
+        <div class="key" data-key="v">V</div>
+        <div class="key" data-key="b">B</div>
+        <div class="key" data-key="n">N</div>
+        <div class="key" data-key="m">M</div>
+      </div>
+      <div class="row">
+        <div class="key space" data-key=" ">Space</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script1.js"></script>
+</body>
+</html>
